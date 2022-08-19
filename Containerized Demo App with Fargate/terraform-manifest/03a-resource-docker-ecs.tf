@@ -58,19 +58,23 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
 
 ### creating ecs cluster
 resource "aws_ecs_cluster" "docker_app_cluster" {
-  name = "docker_app_cluster"
+  name = "${var.lambda_function_name}-cluster"
 }
 
 ### creating ecs task
 resource "aws_ecs_task_definition" "first_task" {
-  family = "dash-app-task"
+  family = "${var.lambda_function_name}-task"
+
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
 
   # setting task config
   # allow multiple task that share the memory oru and cpu
   container_definitions = <<DEFINITION
   [
     {
-      "name": "dash-app-task",
+      "name": "${var.lambda_function_name}-task",
       "image": "${aws_ecr_repository.repo.repository_url}",
       "essential": true,
       "portMappings": [
@@ -123,7 +127,7 @@ resource "aws_security_group" "load_balancer_security_group" {
 # create load balancer
 # need at least 2 subnets
 resource "aws_alb" "application_load_balancer" {
-  name               = "dash-docker"
+  name               = "${var.lambda_function_name}-app"
   load_balancer_type = "application"
   subnets            = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
   security_groups    = ["${aws_security_group.load_balancer_security_group.id}"]
@@ -141,7 +145,7 @@ resource "aws_default_vpc" "app_vpc" {
 
 # create 
 resource "aws_lb_target_group" "target_group" {
-  name        = "target-group"
+  name        = "${var.lambda_function_name}-target-group"
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
@@ -183,11 +187,14 @@ resource "aws_security_group" "service_security_group" {
 
 ### create ecs service
 resource "aws_ecs_service" "first_service" {
-  name            = "dash-first-service"
+  name            = "${var.lambda_function_name}-service"
   cluster         = aws_ecs_cluster.docker_app_cluster.id
   task_definition = aws_ecs_task_definition.first_task.arn
   launch_type     = "FARGATE"
   desired_count   = 1 # Setting the number of containers to be deployed
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
@@ -196,9 +203,9 @@ resource "aws_ecs_service" "first_service" {
   }
 
   network_configuration {
-    subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
+    subnets = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
     # Providing our containers with public IPs
-    assign_public_ip = true                                                
+    assign_public_ip = true
     security_groups  = ["${aws_security_group.service_security_group.id}"]
   }
 }

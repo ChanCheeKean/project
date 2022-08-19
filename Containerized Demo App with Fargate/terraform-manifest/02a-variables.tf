@@ -13,7 +13,7 @@ variable "region" {
 variable "lambda_function_name" {
   description = "Directory for each lambda function"
   type        = string
-  default     = "docker-app"
+  default     = "my-docker-dash"
 }
 
 locals {

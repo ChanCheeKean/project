@@ -1,4 +1,4 @@
-**
+
 This repo demonstrates deployment of Dash Application to Cloud Services which includes the steps below
 1. Containerized Dash App using Docker
 2. Pushing Docker Image to Ekr
@@ -38,6 +38,8 @@ terraform apply -auto-approve
 Search load balancer in the AWS console and paste it in the browser
 ![Alt text](./static/demo.PNG?raw=true)
 
+
+Here is the snapshot of the layout
 
 ![Alt text](https://cdn-images-1.medium.com/max/800/1*HRXj_0LRk8G4be-NvxlCwg.png)
 
