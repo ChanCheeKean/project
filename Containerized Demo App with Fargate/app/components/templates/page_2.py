@@ -3,13 +3,12 @@ from dash import html
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-from components.callbacks import callback_2
 
 ### text input and output ###
 text_container = html.Div(
     dbc.Container(
         [
-            html.H1("Sentiment Analyser", className="fw-bolder"),
+            html.H1("Sentiment-Analyser", className="fw-bolder"),
             html.P("Enter Text to get the Sentiment in return"),
             html.Hr(className="my-3"),
             

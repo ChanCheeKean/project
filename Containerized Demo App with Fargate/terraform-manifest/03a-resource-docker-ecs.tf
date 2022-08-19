@@ -63,18 +63,14 @@ resource "aws_ecs_cluster" "docker_app_cluster" {
 
 ### creating ecs task
 resource "aws_ecs_task_definition" "first_task" {
-  family = "${var.lambda_function_name}-task"
-
-  # triggers = {
-  #   always_run = "${timestamp()}"
-  # }
+  family = "${var.lambda_function_name}_task"
 
   # setting task config
   # allow multiple task that share the memory oru and cpu
   container_definitions = <<DEFINITION
   [
     {
-      "name": "${var.lambda_function_name}-task",
+      "name": "${var.lambda_function_name}_task",
       "image": "${aws_ecr_repository.repo.repository_url}",
       "essential": true,
       "portMappings": [
@@ -83,8 +79,8 @@ resource "aws_ecs_task_definition" "first_task" {
           "hostPort": 8050
         }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 4096,
+      "cpu": 2048
     }
   ]
   DEFINITION
@@ -92,8 +88,8 @@ resource "aws_ecs_task_definition" "first_task" {
   # using ECS Fargate & awsvpc as network mode
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  memory                   = 512
-  cpu                      = 256
+  memory                   = 4096
+  cpu                      = 2048
   execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
 }
 
@@ -192,9 +188,6 @@ resource "aws_ecs_service" "first_service" {
   task_definition = aws_ecs_task_definition.first_task.arn
   launch_type     = "FARGATE"
   desired_count   = 1 # Setting the number of containers to be deployed
-  # triggers = {
-  #   always_run = "${timestamp()}"
-  # }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
