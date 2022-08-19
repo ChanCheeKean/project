@@ -1,0 +1,21 @@
+{
+  "displayName": "Smart City Dashboard",
+  "appVersion": "1.0.0",
+  "appCopyright": "@ Omnetric 2019",
+  "links": {
+    "default": [
+      {
+        "type": "WWW",
+        "name": "Developer",
+        "value": "https://www.omnetric.com"
+      }
+    ],
+    "de": [
+      {
+        "type": "WWW",
+        "name": "Entwickler",
+        "value": "https://www.omnetric.com"
+      }
+    ]
+  }
+}

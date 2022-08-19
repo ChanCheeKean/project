@@ -1,0 +1,5 @@
+# For more information on .gitignore files and especially their pattern formatting
+# refer to https://git-scm.com/docs/gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/

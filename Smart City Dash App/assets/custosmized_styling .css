@@ -1,0 +1,592 @@
+.modebar {
+display: none !important;
+}
+
+body { 
+height: 100%; 
+margin: 0px; padding: 0px;
+background-color: #272727;
+}
+
+hr{
+color : white !important;
+background-color : white !important;
+padding : 0!important;
+margin : 10px 0!important;
+}
+
+p{
+color : white;
+}
+
+video {
+  object-fit: fill !important;
+}
+
+
+/* -----------Primary Tab styling----------- */
+.tabs--primary .tab_nav{
+position:fixed;
+background-color: #323232 !important;
+border: none !important;
+height: 100% !important;
+width : 15%!important;
+left: 0 !important;
+padding-top: 1rem;
+box-sizing: border-box !important;
+}
+
+.tabs--primary .tab_item{
+border: none !important;
+padding: 0.8rem 0.5rem 0.2rem 0.5rem!important;
+margin: 0 !important;
+background-color: transparent !important;
+text-align: left !important;
+color : white !important;
+font-weight: bold !important;
+font-size : 0.8rem !important;
+box-sizing: border-box !important;
+opacity : 0.5;
+}
+
+.tabs--primary .tab__content{
+margin-left: 15% !important;
+padding-top: 3% !important;
+padding : 0.8rem;
+width : 84%;
+}
+
+.tabs--primary .tab_item:hover{
+background-color: #272727 !important;
+opacity : 1 !important;
+}
+
+.tabs--primary .is_activated{
+border: none !important;
+padding: 0.8rem 0.5rem 0.2rem 0.5rem!important;
+margin: 0 !important;
+background-color: transparent !important;
+text-align: left !important;
+color : white !important;
+font-weight: bold !important;
+font-size : 0.9rem !important;
+box-sizing: border-box !important;
+background-color: #272727 !important;
+border-radius : 0 !important;
+}
+
+
+/* -----------Traffic Tab styling----------- */
+.bot_tab_nav{
+display: block;
+margin : 0 auto 0 auto !important;
+padding : 0 auto 0 auto!important;
+border : none !important;
+width : 100% !important;
+}
+
+.bot_tab_item{
+font-size : 0.8rem !important;
+margin : 0!important;
+padding : 10px 5px !important;
+color: white !important;
+text-transform: uppercase !important;
+text-decoration: none !important;
+display: inline-block !important;
+font-weight: bold !important;
+transition: all 0.4s ease 0s !important;
+background-color : transparent !important;
+border : none !important;
+border-bottom : 3px solid transparent !important;
+font-size: 10px !important;
+
+}
+
+.bot_tab_activated {
+background-color : #272727 !important;
+border-bottom : 3px solid #91dfd2 !important;
+box-sizing: border-box !important;
+}
+
+
+#bot_tab_nav .bot_tab_item{
+font-size : 0.2rem !important;
+color: white !important;
+text-transform: uppercase !important;
+text-decoration: none !important;
+display: inline-block !important;
+font-weight: bold !important;
+background-color : transparent !important;
+border : none !important;
+border-bottom : 3px solid transparent !important;
+}
+
+.bot_tab_content{
+width: 100% !important;
+}
+
+/* -----------plotly input styling----------- */
+.button--primary{
+margin: 0.1rem 0.5rem 0rem 1rem !important;
+}
+
+.Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+padding-right: 16px !important;
+}
+
+.inputGroup {
+margin-bottom: 5px !important;
+}
+
+.select {
+font-size : 0.75rem;
+width : 130px;
+text-align : center;
+}
+
+.inputGroup .inputGroup__input{
+vertical-align : top;
+margin-right : 5px;
+}
+
+.inputGroup.inline{
+width: fit-content !important;
+display : inline-block !important;
+vertical-align : top;
+box-sizing: border-box;
+margin-bottom: 0 !important;
+}
+
+.inline .inputGroup__label {
+width: fit-content !important;
+margin : auto 8px auto 8px;
+vertical-align: top !important;
+padding-top: 6px;
+color : white;
+font-weight: 500 !important;
+
+}
+
+.inputGroup .textInput{
+width: 200px !important;
+}
+
+.radioButtonWrapper input[type="radio"] {
+opacity:1 !important;
+position: static !important;
+cursor: pointer !important;
+margin-left: 1em;
+margin-right: 0.2em;
+}
+
+/* -----------plotly datepicker styling----------- */
+
+.date-picker table{
+table-layout: auto !important;
+margin: 5px 0 5px 0 !important;
+}
+
+.date-picker th{
+text-align: center !important;
+}
+
+.date-picker td{
+text-align: center !important;
+padding : 0 !important;
+}
+
+.date-picker ul{
+padding-left: 0 !important;
+padding-right: 0 !important;
+line-height: 0 !important;
+-webkit-margin-before: 0 !important;
+margin-block-start: 0 !important;
+-webkit-margin-after: 0 !important;
+margin-block-end: 0 !important;
+}
+
+.date-picker td:last-child{
+padding-right: 0 !important;
+}
+
+.date-picker td:first-child{
+padding-left: 0 !important;
+}
+
+.date-picker button {
+margin : 0 !important;
+}
+
+.date-picker.select{
+width: 300px;
+}
+
+.DateInput_input {
+    font-size: 1rem !important;
+    padding: 5px !important;
+    text-align : center !important;
+    font-weight : 400 !important;
+}
+
+.DateRangePickerInput__withBorder {
+    /* border-radius: 2px; */
+    border: 1px solid white !important;
+}
+
+.button--primary{
+margin: 0 0.5rem 0rem 1rem !important;
+background-color: #272727;
+
+}
+
+.gRFjMP {
+font-weight: bold;
+color : white;
+font-size: 12px !important;
+margin-top: 10px;
+font-weight: 600;
+text-decoration: underline;
+}
+
+.gauge{
+height : 200px !important;
+
+}
+#map_pop_out{
+background-color : #323232 !important;
+color : white ;
+position: fixed !important;
+width: 55%;
+z-index : 9999;
+left: 50%;
+top: 50%;
+height: 350px;
+transform: translate(-50%, -50%);
+padding-right: 40px !important;
+box-sizing: border-box;
+overflow: auto;
+}
+
+.icon{
+height : 2rem;
+width : 2rem;
+-webkit-filter: invert(100%);
+}
+
+.icon-button .icon{
+height : 1.2rem;
+width : 1.2rem;
+}
+
+.icon-button{
+background-color: transparent !important;
+padding : 0!important;
+margin :  0 0 10px 0 !important;
+border :0!important;
+outline:none !important;
+}
+
+.card_header{
+background-color: #323232 !important;
+font-weight: bold !important;
+color :white !important;
+font-size : 0.8rem !important;
+border: 1px solid white !important;
+padding : 8px 10px !important;
+
+}
+
+.card{
+background-color: #323232 !important;
+}
+
+.card_body{
+padding : 0 !important;
+margin : 0 !important;
+
+}
+
+.map{
+height : 260px !important;
+}
+
+.traffic_alert{
+display : block;
+padding : 2px 5px;
+margin: 1px 10px;
+background-color : transparent !important;
+border: none !important;
+box-shadow: none !important;
+text-align: left !important;
+width : 95% !important
+}
+
+.traffic_alert:hover{
+background-color : #272727!important;
+text-align: left !important;
+overflow-x: none !important;
+
+}
+
+
+.traffic_alert span, .traffic_alert p{
+color : white;
+text-decoration: underline;
+padding-left: 50px;
+font-weight: bold;
+}
+
+.tree_button{
+background-color: #323232 !important;
+box-shadow: none !important;
+height : 30px !important;
+margin: 0 !important;
+padding: 0 10px !important;
+}
+
+.tree_button .icon{
+height : 0.6rem !important;
+width : 1rem;
+margin: 0 !important;
+padding: 0 !important;
+}
+
+.alert_collapse{
+margin : 0 !important;
+color : white !important;
+padding-left : 40px !important;
+display: list-item;                                
+list-style-type: disc;    
+list-style-position: inside; 
+font-size : 0.8rem !important;
+}
+
+.alert_box{
+overflow-y: scroll !important;
+overflow-x: hidden !important;
+}
+
+/* -----------plotly gauge styling----------- */
+.gauge {
+color : #000000;
+margin : 0 10px 0 10px;
+}
+
+.gauge .kKWoYf {
+color: white !important;
+}
+
+.gauge .eYbLCt {
+display: block;
+font-size: 16px;
+color: #000000;
+margin-bottom: 0 !important;
+font-weight: 600;
+color : white !important;
+}
+
+.gauge .hWeVsY {
+font-size : 16px;
+}
+
+.gauge .giEVwx {
+margin-top: -10px !important;
+text-transform: none;
+font-size: 12px;
+color : white !important;
+opacity: 0.5 !important;
+}
+
+.gauge .eUJyCY .needle {
+stroke: #5b6268;
+stroke-width: 5px;
+}
+
+.gauge .eUJyCY .needle-knob {
+stroke: #7567f5;
+stroke-width: 4;
+}
+
+.gauge .eUJyCY .scale {
+font-size: 16px;
+fill: white;
+}
+
+.gauge .gDqOIc {
+color : #0e4886 !important;
+font-size : 20px;
+}
+
+.gauge .keWyWP > div {
+margin-top: 40px;
+line-height: 20px !important;
+}
+
+.gauge .hiuTRN{
+font-size: 16px;
+margin-top: 2px;
+font-weight: 600;
+margin-top : 20px;
+text-decoration: underline;
+}
+
+.gauge .sc-gZMcBi {
+height: 180px!important;
+}
+
+
+.ihhKEE {
+background-color: transparent !important;
+border: 1px solid white !important;
+}
+
+.bIfLM{
+background-color: transparent !important;
+border: 1px solid white !important;
+}
+
+.duhgmy {
+color : gold !important;
+font-weight: bold !important;
+font-size : 0.6rem!important;
+top: 10%!important;
+}
+
+.parking_bar .bIfLM{
+height : 260px !important; 
+width : 60px !important; 
+
+}
+
+/* -----------widget----------- */
+.weatherwidget-io{
+color : white !important;
+-webkit-filter: invert(100%);
+height: 250px !important;
+}
+
+/* -----------arrival table for parking lot----------- */
+
+.arrival_table_row td, .arrival_table_row th{
+margin : 0!important;
+padding-top : 0!important;
+padding-bottom : 0!important;
+border : 0 !important;
+}
+
+.arrival_table_row th p{
+text-decoration: underline;
+}
+
+.arrival_table_p{
+font-weight: bold !important;
+color : white;
+font-size : 1rem;
+padding : 20px 0 0 20px !important;
+}
+
+.parking_table_plot{
+height : 70px;
+width : 100% !important;
+}
+
+.echarge_table_row th{
+margin : 0!important;
+padding-top : 0!important;
+padding-bottom : 5px!important;
+border : 0!important;
+}
+
+.echarge_table_row td{
+margin : 0!important;
+padding : 5px 0!important;
+border : 0!important;
+}
+
+.echarge_table_row td p{
+color : white !important;
+text-align: center !important;
+
+}
+
+.echarge_table_row td:first-child{
+padding-left : 35px !important;
+color : white !important;
+}
+
+.echarge_table_row th p{
+text-decoration: underline;
+}
+
+.table {
+    margin-bottom: 0 !important;
+    }
+
+
+.station_info p{
+margin: 0 !important;
+color : white ;
+font-weight: bold !important;\
+font-size : 0.8rem !important;
+}
+
+.ev_text{
+text-align: left !important;
+padding: 15px 0px;
+color : #8feaf2!important;
+font-size : .9rem !important;
+}
+
+.ev_icon{
+margin : 0 auto 0 auto !important;
+padding : 0 20px !important;
+height : 3rem;
+width : 100% !important;
+-webkit-filter: invert(100%);
+}
+
+.station_ttip{
+border : 2px solid black !important;
+color : black!important;
+background-color :white !important;
+font-size : 1rem !important;
+}
+
+.station_name {
+font-weight: bold !important;
+font-size : 1.5rem !important;
+}
+
+.rw_icon{
+margin : 0 !important;
+padding : 0!important;
+height : 5rem;
+width : 5rem% !important;
+border-radius : 10%;
+}
+
+.detail_head{
+padding : 5px 0!important;
+margin : 0 !important;
+font-weight: bold !important;
+font-size : 1.1rem !important;
+}
+
+.detail_title{
+padding : 5px 0!important;
+margin : 0 !important;
+font-weight: bold !important;
+font-size : 0.8rem !important;
+}
+
+.detail_info{
+padding : 5px 0!important;
+margin : 0 !important;
+opacity : 0.5;
+font-size : 0.8rem !important;
+}
+
+.pop_out_text{
+color : gold;
+padding-left: 1rem;
+}

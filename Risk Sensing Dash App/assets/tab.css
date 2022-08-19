@@ -1,0 +1,79 @@
+
+/* -----------Main Tab----------- */
+#main_tab{
+	border: none;
+	background-color: transparent;
+	width: fit-content;	
+	margin-top: 3%;
+	margin-left : 1rem;
+}
+
+#main_tab .nav-item{
+	font-size: 1rem;
+	margin: 0;
+}
+
+#main_tab .nav-link{
+	border: none;
+	border-radius: 0;
+	color: grey;
+}
+
+#main_tab .nav-link.active{
+	color: rgb(0, 204, 255);
+	background-color: transparent;
+	border-color: white;
+	border-bottom: 1px solid rgb(0, 204, 255);
+;
+}
+
+/* -----------Horizontal Graph Tab----------- */
+.h_tab_item{
+	font-size : 0.7rem !important;
+	margin : 0!important;
+	padding : 10px 5px !important;
+	color: white !important;
+	text-transform: uppercase !important;
+	text-decoration: none !important;
+	display: inline-block !important;
+	font-weight: bold !important;
+	background-color : transparent !important;
+	border : none !important;
+	border-bottom : 3px solid transparent !important;
+	font-family: Verlag Book!important;
+}
+
+.h_tab_activated {
+	border-bottom : 3px solid #33CCCC!important;
+	color: #33CCCC !important;
+	box-sizing: border-box !important;
+}
+
+/* -----------Vercial Graph Tab----------- */
+.tab-container--vert .tab {
+    width: auto;
+	border-right: none;
+    border-bottom: none;
+}
+
+.v_tab_nav{
+	height:100%;
+}
+
+#pg2_pie_tab .v_tab_item{
+	font-size : .7rem !important;
+	font-family: Verlag Book!important;
+	font-weight: bold !important;
+	color: white;
+	background-color : transparent !important;
+	margin : 0!important;
+	padding : 10px 10px !important;
+	text-transform: uppercase !important;
+	border: none !important; 
+	text-align: left;
+}
+
+#pg2_pie_tab .v_tab_activated {
+	color: #33CCCC !important;
+	box-sizing: border-box !important;
+}

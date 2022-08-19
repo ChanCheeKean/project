@@ -1,0 +1,11 @@
+applications:
+  - name: SmartCityApp
+    instances: 1
+    memory: 1G
+    disk_quota: 2G
+    command: waitress-serve index:server
+    buildpack: python_buildpack
+    
+
+   
+ 

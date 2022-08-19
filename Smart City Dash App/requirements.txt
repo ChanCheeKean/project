@@ -1,0 +1,11 @@
+plotly==3.9.0
+dash_renderer
+dash
+dash_daq==0.1.5
+pandas
+waitress
+dash_bootstrap_components==0.6.3
+requests==2.22.0
+Flask==1.0.2
+./packages/bing_maps_smartcity-1.0.0.tar.gz
+./packages/weather_widget-0.0.1.tar.gz

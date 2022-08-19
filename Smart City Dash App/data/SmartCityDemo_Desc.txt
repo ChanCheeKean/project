@@ -1,0 +1,37 @@
+Number of entries: 8737 
+Data range: 2018
+Resolution: hourly values
+Data columns (total 32 columns):
+ts:timestamp index of the dataset
+hour:hour of the ts (0-23)
+parkingFacilityOccupancy: average occupancy percentage, 8737 non-null float64
+totalNumberOfOccupiedParkingSpaces: average number of occupied parking spaces,   8737 non-null float64
+totalNumberOfVacantParkingSpaces: average number of vacant parking spaces,      8737 non-null float64
+Wotag: week day (1Monday, 2Tuesday, etc,                                 8737 non-null float64
+Fahrtzw: travel type group (wworking day, u  Holiday business day (Saturday), sSundays and bank Holidays), 8737 non-null object
+KFZ_R1: Total count of all vehicles towards direction                                8737 non-null float64
+KFZ_R2: Total count of all vehicles towards direction 2,                                 8737 non-null float64
+Lkw_R1                                8737 non-null float64, truck
+Lkw_R2                                8737 non-null float64, truck
+PLZ_R1                                8737 non-null float64
+Pkw_R1                                8737 non-null float64 car
+Lfw_R1                                8737 non-null float64
+Mot_R1                                8737 non-null float64
+PmA_R1                                8737 non-null float64
+Bus_R1                                8737 non-null float64
+LoA_R1                                8737 non-null float64
+Lzg_R1                                8737 non-null float64
+Sat_R1                                8737 non-null float64
+Son_R1                                8737 non-null float64
+PLZ_R2                                8737 non-null float64
+Pkw_R2                                8737 non-null float64
+Lfw_R2                                8737 non-null float64
+Mot_R2                                8737 non-null float64
+PmA_R2                                8737 non-null float64
+Bus_R2                                8737 non-null float64
+LoA_R2                                8737 non-null float64
+Lzg_R2                                8737 non-null float64
+Sat_R2                                8737 non-null float64
+Son_R2                                8737 non-null float64
+no2: hourly average of Nitrogen Dioxide in ugm                                  8223 non-null float64
+

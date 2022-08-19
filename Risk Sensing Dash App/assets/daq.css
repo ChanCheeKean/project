@@ -1,0 +1,43 @@
+
+
+/* -----------plotly gauge styling----------- */
+.gauge{
+	height: 515px;
+}
+
+.gauge .eYbLCt {
+	display: block;
+	font-size: .75rem;
+	color: #000000;
+	font-weight: 600;
+	color : white!important;
+}
+
+.gauge .cAPXWV {
+	font-size: 3rem;
+	color: white;
+}
+
+.gauge .dHABtm{
+	margin: 0 !important;
+	padding : 0!important;
+	font-size: 15px !important;
+}
+
+.gauge .sc-gZMcBi {
+	margin: 0;
+	padding: 0 !important;
+}
+
+.gauge .dHABtm{
+	color: gold;
+}
+
+.gauge .scale{
+	font-size: 18px !important;
+	fill : white!important;
+}
+
+.gauge .needle {
+    stroke: rgb(241, 89, 39) !important;
+    stroke-width: 3 !important;

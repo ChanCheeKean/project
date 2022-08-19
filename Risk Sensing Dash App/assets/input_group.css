@@ -1,0 +1,26 @@
+.input_text{
+	display: inline-block;
+	color: white;
+	font-weight: bold;
+	vertical-align: middle;
+	font-size: .9rem;
+}
+
+.submit_but{
+	color: rgb(0, 204, 255);
+	border-color:rgb(0, 204, 255);
+}
+
+/* -----------plotly datepicker styling----------- */
+.DateInput_input {
+    font-size: 1rem !important;
+    padding: 2px !important;
+    text-align : center !important;
+    font-weight : 400 !important;
+}
+
+input {
+	padding: 0.25rem 0;
+	border-radius: .25rem;
+	font-size: 0.9rem !important;
+}
