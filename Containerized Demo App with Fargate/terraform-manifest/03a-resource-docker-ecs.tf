@@ -1,5 +1,4 @@
 # tutorial on doing it manually https://www.youtube.com/watch?v=o7s-eigrMAI&ab_channel=BeABetterDev
-# https://towardsdatascience.com/how-to-use-docker-to-deploy-a-dashboard-app-on-aws-8df5fb322708
 
 ### get account id from aws_caller
 data "aws_caller_identity" "current" {}
@@ -11,9 +10,9 @@ locals {
   ecr_image_tag = "latest"
 }
 
-### create ecr for each lambda images
+### create ecr docker image
 resource "aws_ecr_repository" "repo" {
-  name         = "${var.project_name}-${var.lambda_function_name}-${local.deploy-env}"
+  name         = "${var.project_name}-${var.app_name}-${local.deploy-env}"
   force_delete = true
 }
 
@@ -58,19 +57,19 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
 
 ### creating ecs cluster
 resource "aws_ecs_cluster" "docker_app_cluster" {
-  name = "${var.lambda_function_name}-cluster"
+  name = "${var.app_name}-cluster"
 }
 
 ### creating ecs task
 resource "aws_ecs_task_definition" "first_task" {
-  family = "${var.lambda_function_name}_task"
+  family = "${var.app_name}_task"
 
   # setting task config
   # allow multiple task that share the memory oru and cpu
   container_definitions = <<DEFINITION
   [
     {
-      "name": "${var.lambda_function_name}_task",
+      "name": "${var.app_name}_task",
       "image": "${aws_ecr_repository.repo.repository_url}",
       "essential": true,
       "portMappings": [
@@ -123,7 +122,7 @@ resource "aws_security_group" "load_balancer_security_group" {
 # create load balancer
 # need at least 2 subnets
 resource "aws_alb" "application_load_balancer" {
-  name               = "${var.lambda_function_name}-app"
+  name               = "${var.app_name}-app"
   load_balancer_type = "application"
   subnets            = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
   security_groups    = ["${aws_security_group.load_balancer_security_group.id}"]
@@ -141,7 +140,7 @@ resource "aws_default_vpc" "app_vpc" {
 
 # create 
 resource "aws_lb_target_group" "target_group" {
-  name        = "${var.lambda_function_name}-target-group"
+  name        = "${var.app_name}-target-group"
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
@@ -183,7 +182,7 @@ resource "aws_security_group" "service_security_group" {
 
 ### create ecs service
 resource "aws_ecs_service" "first_service" {
-  name            = "${var.lambda_function_name}-service"
+  name            = "${var.app_name}-service"
   cluster         = aws_ecs_cluster.docker_app_cluster.id
   task_definition = aws_ecs_task_definition.first_task.arn
   launch_type     = "FARGATE"

@@ -36,11 +36,16 @@ terraform apply -auto-approve
 
 ### 5. Get the DNS name from AWS and run
 Check the task status from ECS Dashboard to make sure the setting up is completed
+
 ![Alt text](./static/demo1.PNG?raw=true)
 
+
 Search for **Load Balancer** in the AWS console and Look for the **DNS Name**
+
 ![Alt text](./static/demo.PNG?raw=true)
 
+
 Copy and Paste the DNS name and paste it in a new tab.
+
 ![Alt text](https://cdn-images-1.medium.com/max/800/1*HRXj_0LRk8G4be-NvxlCwg.png)
 

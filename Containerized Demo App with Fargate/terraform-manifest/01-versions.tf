@@ -17,13 +17,6 @@ terraform {
       version = ">= 3.0"
     }
   }
-
-  # save the statefile in remote location
-  backend "s3" {
-    bucket = "edelman-terraform"
-    key    = "test-docker/workspace/terraform.tfstate"
-    region = "us-east-1"
-  }
 }
 
 # Provider Block
