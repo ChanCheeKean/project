@@ -10,7 +10,7 @@ locals {
   ecr_image_tag = "latest"
 }
 
-### create ecr docker image
+### create ecr for docker image
 resource "aws_ecr_repository" "repo" {
   name         = "${var.project_name}-${var.app_name}-${local.deploy-env}"
   force_delete = true
@@ -102,7 +102,7 @@ resource "aws_default_subnet" "default_subnet_b" {
 }
 
 ### create load balancer
-# security group1: internet traffic into load balancer load balancer
+# security group1: traffic from client into load balancer 
 resource "aws_security_group" "load_balancer_security_group" {
   ingress {
     from_port   = 80 # Allowing traffic in from port 80 and send to 8050 in Fargate
@@ -119,7 +119,7 @@ resource "aws_security_group" "load_balancer_security_group" {
   }
 }
 
-# create load balancer
+# creating the actual load balancer
 # need at least 2 subnets
 resource "aws_alb" "application_load_balancer" {
   name               = "${var.app_name}-app"
@@ -131,12 +131,6 @@ resource "aws_alb" "application_load_balancer" {
 # create default vpc
 resource "aws_default_vpc" "app_vpc" {
 }
-
-# to get existing defualt vpc
-# data "aws_vpc" "default" {
-#   default = true
-# } 
-
 
 # create 
 resource "aws_lb_target_group" "target_group" {
@@ -162,7 +156,7 @@ resource "aws_lb_listener" "listener" {
 }
 
 
-### security group 2: that allows traffic only from the application load balancer 
+### security group 2: that allows traffic only from the application load balancer to ecs
 resource "aws_security_group" "service_security_group" {
   ingress {
     from_port = 0
