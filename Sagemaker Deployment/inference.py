@@ -19,33 +19,30 @@ def input_fn(request_body, content_type):
     '''Loading Data from User Input and serialize into list'''
 
     logger.info("Deserializing the input data")
-    if content_type == "application/jsonlines":
-        data = pd.read_json(request_body, orient="records", lines=True).iloc[:, 0].tolist()
-    elif content_type == "application/json":
-        data = json.loads(request_body)
+    if content_type == "application/json":
+        data = pd.read_json(request_body, orient="records", lines=True)
+    elif content_type == "text/plain":
+        data = pd.DataFrame({'text' : json.loads(request_body)})
     elif content_type == "text/csv":
-        data = pd.read_csv(request_body).iloc[:, 0].tolist()
+        data = pd.read_csv(request_body)
     else:
         raise Exception(f"Requested unsupported ContentType in content_type: {content_type}")
-
     return data
 
 def predict_fn(data, model):
     '''Generating Prediction for de-serialized data'''
 
     logger.info("Generating predictions")
-    encoded_input = model['tokenizer'](data, return_tensors='pt', padding=True)
+    encoded_input = model['tokenizer'](data.iloc[:, 0].tolist(), return_tensors='pt', padding=True)
     output = model['predictor'](**encoded_input)
     scores = softmax(output[0].detach().numpy())
-    return scores
+    labels = ['anger', 'joy', 'optimism', 'sadness']
+    pred_list = [{x : str(y) for x, y in zip(labels, score)} for score in scores]
+    data['result'] = pred_list
+    return data
 
 def output_fn(prediction_output, accept):
     '''Serialize generated ouput and return to user'''
-    labels = ['anger', 'joy', 'optimism', 'sadness']
-    pred_list = [
-          {x : str(y)} for score in prediction_output
-            for x, y in zip(labels, score)
-      ]
-
-    logger.info("Serializing the generated output")
-    return json.dumps(pred_list)
+    logger.info("Serializing Output")
+    return prediction_output.to_json(orient="records", lines=True)
+    # return json.dumps(pred_list)
