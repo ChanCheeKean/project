@@ -1,9 +1,9 @@
 # Lambda Deployment with Container Image
 
-### Editing '''main.py'''
+### Editing main.py
 Adding Tasks to be performed in the script
 
-### Editing '''Dockerfile'''
+### Editing Dockerfile
 Defining the python version and files to be added to lambda version 
 
 ### Build Docker Container Image with the Command Below
