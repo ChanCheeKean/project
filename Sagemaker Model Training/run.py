@@ -1,12 +1,13 @@
 from sagemaker.pytorch.estimator import PyTorch
 from sagemaker import get_execution_role
 
+# https://github.com/aletheia/mnist_pl_sagemaker
 torch_estimator = PyTorch(
     base_job_name="test-pytorch-run",
     entry_point="train.py",
     framework_version="1.12.0",
     py_version = "py38",
-    dependencies=["requirements.txt"],
+    dependencies=["requirements.txt"], # ['utils', 'configs']
     instance_count=1,
     instance_type="ml.m5.large",
     use_spot_instances=True,
