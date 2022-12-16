@@ -1,4 +1,5 @@
 import os
+import torch
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
@@ -8,7 +9,9 @@ import argparse
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_dir", type=str, default=os.environ.get("SM_MODEL_DIR"))
+    parser.add_argument('-o','--output-data-dir', type=str, default=os.environ['SM_OUTPUT_DATA_DIR'])
+    parser.add_argument('-m','--model-dir', type=str, default=os.environ['SM_MODEL_DIR'])
+    parser.add_argument('--epochs', type=int, default=50)
     args, _ = parser.parse_known_args()
 
     print("Downloading Model")
@@ -23,9 +26,10 @@ def main():
     labels = ['anger', 'joy', 'optimism', 'sadness']
     final_label = [{x : y} for score in scores for x, y in zip(labels, score)]
     print(final_label)
-    model_save_path = os.path.join(args.model_dir, model_name)
-    model.save_pretrained(model_save_path)
-    print('Saved Model in', model_save_path)
+
+    with open(os.path.join(args.model_dir, 'model.pth'), 'wb') as f:
+        torch.save(model.state_dict(), f)
+    print('Saved Model in', args.model_dir)
 
 if __name__ == "__main__":
     main()
