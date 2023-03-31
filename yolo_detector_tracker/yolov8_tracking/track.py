@@ -39,9 +39,42 @@ from yolov8.ultralytics.yolo.utils.files import increment_path
 from yolov8.ultralytics.yolo.utils.torch_utils import select_device
 from yolov8.ultralytics.yolo.utils.ops import Profile, non_max_suppression, scale_boxes, process_mask, process_mask_native
 from yolov8.ultralytics.yolo.utils.plotting import Annotator, colors, save_one_box
-
 from trackers.multi_tracker_zoo import create_tracker
 
+### helper function
+def find_center(x, y, x2, y2):
+    '''Find the center of the rectangle for detection'''
+    cx = (x + x2) // 2
+    cy = (y + y2) // 2
+    return cx, cy
+
+def count_object(
+    center, id, left, right, l_count, r_count, mid_list
+    ):
+
+    LOGGER.info("Counting Object!")
+    
+    ix, iy = center
+    if (ix > left) and (ix < right):
+        if id not in mid_list:
+            mid_list.append(id)
+
+    elif ix < left:
+        if id in mid_list:
+            mid_list.remove(id)
+            l_count += 1
+
+    elif ix > right:
+        if id in mid_list:
+            mid_list.remove(id)
+            r_count += 1
+    return l_count, r_count, mid_list
+
+def check_in_gate(center, left, right):
+    ix, iy = center
+    if (ix > left) and (ix < right):
+        return True
+    return False
 
 @torch.no_grad()
 def run(
@@ -87,7 +120,7 @@ def run(
     webcam = source.isnumeric() or source.endswith('.txt') or (is_url and not is_file)
     if is_url and is_file:
         source = check_file(source)  # download
-
+        
     # Directories
     if not isinstance(yolo_weights, list):  # single yolo model
         exp_name = yolo_weights.stem
@@ -140,6 +173,16 @@ def run(
             if hasattr(tracker_list[i].model, 'warmup'):
                 tracker_list[i].model.warmup()
     outputs = [None] * bs
+
+    # variables for counting purpose
+    middle_list = []
+    left_count, right_count = 0, 0
+    font_color = (0, 255, 0)
+    font_size = 1.
+    font_thickness = 2
+    font_type = cv2.FONT_HERSHEY_SIMPLEX
+    center = (0, 0)
+    include_count = 0
 
     # Run tracking
     #model.warmup(imgsz=(1 if pt else bs, 3, *imgsz))  # warmup
@@ -194,6 +237,16 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             imc = im0.copy() if save_crop else im0  # for save_crop
 
+            # draw lines
+            ih, iw, _ = im0.shape
+            middle_line_position = iw // 2
+            left_line_position = middle_line_position - 100
+            right_line_position = middle_line_position + 100
+            # cv2.line(im0, (middle_line_position, 0), (middle_line_position, ih), (255, 0, 255), 2)
+            cv2.line(im0, (left_line_position, 0), (left_line_position, ih // 2), (0, 255, 0), 2)
+            cv2.line(im0, (right_line_position, 0), (right_line_position, ih // 2), (0, 255, 0), 2)
+            cv2.line(im0, (ih // 2, left_line_position), (ih // 2, right_line_position), (0, 255, 0), 2)
+
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             
             if hasattr(tracker_list[i], 'tracker') and hasattr(tracker_list[i].tracker, 'camera_update'):
@@ -223,6 +276,7 @@ def run(
                     outputs[i] = tracker_list[i].update(det.cpu(), im0)
                 
                 # draw boxes for visualization
+                include_count = 0
                 if len(outputs[i]) > 0:
                     
                     if is_seg:
@@ -241,6 +295,16 @@ def run(
                         cls = output[5]
                         conf = output[6]
 
+                        # count object
+                        left_count, right_count, middle_list = count_object(
+                            center, id, left_line_position, right_line_position, 
+                            left_count, right_count, middle_list)
+                        middle_list = middle_list[-100:]
+                        # print(len(middle_list))
+                        
+                        if check_in_gate(center, left_line_position, right_line_position):
+                            include_count += 1
+                        
                         if save_txt:
                             # to MOT format
                             bbox_left = output[0]
@@ -258,7 +322,9 @@ def run(
                             label = None if hide_labels else (f'{id} {names[c]}' if hide_conf else \
                                 (f'{id} {conf:.2f}' if hide_class else f'{id} {names[c]} {conf:.2f}'))
                             color = colors(c, True)
+
                             annotator.box_label(bbox, label, color=color)
+                            cv2.circle(im0, (int(center[0]), int(center[1])), 5, (0, 0, 255), -1)
                             
                             if save_trajectories and tracking_method == 'strongsort':
                                 q = output[7]
@@ -273,6 +339,14 @@ def run(
                 
             # Stream results
             im0 = annotator.result()
+            if include_count > 1:
+                cv2.putText(im0, f"ALARM", (ih // 2 - 50, iw // 2 - 150), font_type, 5, (0, 0, 255), 3)
+
+            # display result
+            im0 = cv2.flip(im0, 1)
+            cv2.putText(im0, f"In --->: {left_count}", (20, 40), font_type, font_size, font_color, font_thickness)
+            cv2.putText(im0, f"Out <---: {right_count}", (20, 80), font_type, font_size, font_color, font_thickness)
+
             if show_vid:
                 if platform.system() == 'Linux' and p not in windows:
                     windows.append(p)

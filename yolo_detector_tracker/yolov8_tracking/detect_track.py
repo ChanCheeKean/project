@@ -126,7 +126,7 @@ def main():
     middle_list = []
     left_count, right_count = 0, 0
     font_color = (0, 255, 0)
-    font_size = 1.5
+    font_size = 1.
     font_thickness = 2
     font_type = cv2.FONT_HERSHEY_SIMPLEX
     center = (0, 0)
@@ -168,8 +168,8 @@ def main():
 
             # draw lines
             middle_line_position = iw // 2
-            left_line_position = middle_line_position - 250
-            right_line_position = middle_line_position + 250
+            left_line_position = middle_line_position - 100
+            right_line_position = middle_line_position + 100
             # cv2.line(im0, (middle_line_position, 0), (middle_line_position, ih), (255, 0, 255), 2)
             cv2.line(im0, (left_line_position, 0), (left_line_position, ih), (0, 255, 0), 2)
             cv2.line(im0, (right_line_position, 0), (right_line_position, ih), (0, 255, 0), 2)
@@ -204,6 +204,7 @@ def main():
                             center, id, left_line_position, right_line_position, 
                             left_count, right_count, middle_list)
                         middle_list = middle_list[-100:]
+                        # print(len(middle_list))
                         
                         if check_in_gate(center, left_line_position, right_line_position):
                             include_count += 1
@@ -214,25 +215,28 @@ def main():
 
         im0 = annotator.result()
         if include_count > 1:
-            cv2.putText(im0, f"ALARM", (ih // 2 - 50, iw // 2 - 150), font_type, 8, (0, 0, 255), 5)
+            cv2.putText(im0, f"ALARM", (ih // 2 - 50, iw // 2 - 150), font_type, 5, (0, 0, 255), 3)
 
         # display result
         im0 = cv2.flip(im0, 1)
-        cv2.putText(im0, f"Enter: {left_count}", (20, 40), font_type, font_size, font_color, font_thickness)
-        cv2.putText(im0, f"Exit: {right_count}", (20, 80), font_type, font_size, font_color, font_thickness)
+        cv2.putText(im0, f"In --->: {left_count}", (20, 40), font_type, font_size, font_color, font_thickness)
+        cv2.putText(im0, f"Out <---: {right_count}", (20, 80), font_type, font_size, font_color, font_thickness)
 
         if webcam:
             if platform.system() == 'Linux' and p not in windows:
                 windows.append(p)
-                cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO) 
+                # cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO) 
+                cv2.namedWindow(str(p), cv2.WINDOW_FREERATIO)
                 cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
+
+            cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
             cv2.imshow(str(p), im0)
             if cv2.waitKey(1) == ord('q'):  # 1 millisecond
                 exit()
 
         if save_video:
             # TODO: remove this for live video
-            frame = im0[:, 750:1350]
+            frame = im0
             frame = cv2.resize(frame, imgsz, interpolation=cv2.INTER_AREA)
             out_writter.write(frame)
 
