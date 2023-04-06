@@ -19,7 +19,7 @@ app.config.suppress_callback_exceptions = True
 
 # load model
 resnet = InceptionResnetV1(pretrained='vggface2').eval()
-mtcnn = MTCNN(image_size=224, keep_all=True, thresholds=[0.4, 0.5, 0.5], min_face_size=60)
+mtcnn = MTCNN(image_size=224, keep_all=False, thresholds=[0.4, 0.5, 0.5], min_face_size=60)
 
 # get encoded features for all saved images
 people_pictures = "./data/saved/"
@@ -49,7 +49,8 @@ for file in os.listdir(people_pictures):
     img = cv2.imread(f'{people_pictures}/{person_face}.jpg')
     cropped = mtcnn(img)
     if cropped is not None:
-        all_people_faces[person_face] = encode(cropped)[0, :]
+        all_people_faces[person_face] = encode(cropped.unsqueeze(0))[0]
+
 print(f"Stored Image Features: {len(all_people_faces)}")
 
 class VideoCamera(object):
@@ -64,20 +65,19 @@ class VideoCamera(object):
         _, image = self.video.read()
 
         # face matching
+        match_name = 'Undetected'
+        match_score = 2
         batch_boxes, cropped_images = mtcnn.detect_box(image)
         if cropped_images is not None:
-            for box, cropped in zip(batch_boxes, cropped_images):
-                x, y, x2, y2 = [int(x) for x in box]
-                img_embedding = encode(cropped.unsqueeze(0))
-                detect_dict = {}
-                for k, v in all_people_faces.items():
-                    detect_dict[k] = (v - img_embedding).norm().item()
-                min_key = min(detect_dict, key=detect_dict.get)
-
-                if detect_dict[min_key] >= 0.8:
-                    min_key = 'Undetected'
-                cv2.rectangle(image, (x, y), (x2, y2), (0, 0, 255), 2)
-                cv2.putText(image, min_key, (x + 5, y + 10), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
+            x, y, x2, y2 = [int(x) for x in batch_boxes[0]]
+            img_embedding = encode(cropped_images.unsqueeze(0))
+            for k, v in all_people_faces.items():
+                score = (v - img_embedding).norm().item()
+                if (score < match_score) & (score < 0.8):
+                    match_score = score
+                    match_name = k
+            cv2.rectangle(image, (x, y), (x2, y2), (0, 0, 255), 2)
+            cv2.putText(image, match_name, (x + 5, y + 10), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
 
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
