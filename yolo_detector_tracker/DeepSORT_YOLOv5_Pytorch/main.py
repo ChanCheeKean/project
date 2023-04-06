@@ -324,3 +324,4 @@ if __name__ == '__main__':
     with VideoTracker(args) as vdo_trk:
         vdo_trk.run()
 
+# python main.py --input_path 0 --display --weights yolov5/weights/yolov5_wheelchair.pt
