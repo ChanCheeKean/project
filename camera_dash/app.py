@@ -77,14 +77,14 @@ class VideoCamera(object):
                     match_score = score
                     match_name = k
 
-            cv2.rectangle(image, (x, y), (x2, y2), (0, 0, 255), 2)
+            # cv2.rectangle(image, (x, y), (x2, y2), (0, 0, 255), 2)
 
-            if match_score < 0.8:
-                ih, iw, _ = image.shape
-                cv2.putText(
-                    image, 
-                    f'Welcome {match_name}!', (iw // 2 - 200, ih // 2 - 200), 
-                    cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+            # if match_score < 0.8:
+            #     ih, iw, _ = image.shape
+            #     cv2.putText(
+            #         image, 
+            #         f'Welcome {match_name}!', (iw // 2 - 200, ih // 2 - 200), 
+            #         cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
 
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
