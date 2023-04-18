@@ -42,7 +42,8 @@ out_writter = cv2.VideoWriter(
 
 # load model
 # use FP16 half-precision inference, use OpenCV DNN for ONNX inference
-model = AutoBackend("yolov8n.pt", device="cpu", dnn=False, fp16=half)
+model_name = "yolov8n.pt"
+model = AutoBackend(model_name, device=device, dnn=False, fp16=half)
 stride, names, pt = model.stride, model.names, model.pt
 
 # data loader
