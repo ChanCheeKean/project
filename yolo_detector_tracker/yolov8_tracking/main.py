@@ -28,7 +28,7 @@ agnostic_nms = False
 
 # load source
 # source = '0'
-source = './test_video.mp4'
+source = './test.mp4'
 webcam = source.isnumeric() or source.endswith('.txt')
 
 # output config
@@ -122,6 +122,3 @@ for frame_idx, batch in enumerate(dataset):
     if save_video:
         frame = cv2.resize(final_img, img_sz, interpolation=cv2.INTER_AREA)
         out_writter.write(frame)
-
-from ultralytics import YOLO
-model = YOLO("yolov8s.pt")
