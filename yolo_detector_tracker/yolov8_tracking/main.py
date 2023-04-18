@@ -34,7 +34,7 @@ webcam = source.isnumeric() or source.endswith('.txt')
 # output config
 show_video = True
 save_video = False
-output_file_name = 'test.avi'
+output_file_name = 'test_output.avi'
 out_writter = cv2.VideoWriter(
     output_file_name, 
     cv2.VideoWriter_fourcc('M','J','P','G'), 30, img_sz
