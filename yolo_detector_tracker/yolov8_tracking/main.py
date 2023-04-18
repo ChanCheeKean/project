@@ -7,6 +7,9 @@ from ultralytics.yolo.utils.ops import non_max_suppression, scale_boxes
 from ultralytics.yolo.data.dataloaders.stream_loaders import LoadImages, LoadStreams
 from ultralytics.yolo.utils.plotting import Annotator, colors
 
+# from ultralytics import YOLO
+# model = YOLO("yolov8s.pt")
+
 # model config
 half = False
 img_sz = [640, 640]
@@ -31,7 +34,7 @@ webcam = source.isnumeric() or source.endswith('.txt')
 # output config
 show_video = True
 save_video = False
-output_file_name = 'test_output_1.avi'
+output_file_name = 'test.avi'
 out_writter = cv2.VideoWriter(
     output_file_name, 
     cv2.VideoWriter_fourcc('M','J','P','G'), 30, img_sz
@@ -118,7 +121,6 @@ for frame_idx, batch in enumerate(dataset):
     if save_video:
         frame = cv2.resize(final_img, img_sz, interpolation=cv2.INTER_AREA)
         out_writter.write(frame)
-
 
 from ultralytics import YOLO
 model = YOLO("yolov8s.pt")
